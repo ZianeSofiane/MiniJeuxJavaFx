@@ -1,0 +1,197 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.pageDeGarde{
+	-fx-background-color:#0081A1;	
+ 	-fx-background-image: url("/project/image/Fond.png");
+	-fx-background-position:center center;
+	-fx-background-repeat:no-repeat no-repeat;
+	-fx-background-size: cover;
+}
+
+.sign, .log, .h, .sudoku,.lettre, .meles, .motus, .pendu, .rules{
+	-fx-background-color:white;
+	-fx-text-fill:black;
+	-fx-font-size:20;
+	-fx-alignment:center;
+	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.7) , 10,0,0,1 ); 
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,0.7) , 20,0,0,0 );
+}
+
+.rules{
+	-fx-padding: 20 20 20 20;
+}
+
+.rules:hover {
+	-fx-background-color:#D3D3D3;
+}
+
+.out{
+	-fx-background-color:#FFA07A;
+	-fx-text-fill:#8B0000;
+	-fx-font-size:15;
+	-fx-alignment:center;
+	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.7) , 10,0,0,1 ); 
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,0.7) , 20,0,0,0 );
+}
+
+.play{
+	-fx-background-color:#98FB98;
+	-fx-text-fill:black;
+	-fx-font-size:15;
+	-fx-alignment:center;
+	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.7) , 10,0,0,1 ); 
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,0.7) , 20,0,0,0 );
+}
+.play:hover{
+	-fx-background-color:#008080;
+	-fx-text-fill:white;
+}
+
+.sign { -fx-padding: 20 135 20 135; }
+.log { -fx-padding: 20 130 20 130; }
+.h { -fx-padding: 20 300 20 300; }
+.out { -fx-padding:15 20 15 20; }
+.play { -fx-padding:15 150 15 150; }
+
+.sudoku{ -fx-padding: 20 350 20 350; }
+.lettre{ -fx-padding: 20 322 20 322; }
+.meles{ -fx-padding: 20 332 20 332; }
+.motus{ -fx-padding: 20 355 20 355; }
+.pendu{ -fx-padding: 20 355 20 355; }
+
+
+.out:hover{
+	-fx-background-color:#8B0000;
+	-fx-text-fill:white;
+}
+
+
+.sign:hover, .log:hover, .h:hover, .sudoku:hover, .lettre:hover, .meles:hover, .motus:hover, .pendu:hover{
+	-fx-background-color:#0081A1;
+	-fx-text-fill:white;
+}
+
+.names{
+	-fx-padding:20 20;
+	-fx-text-fill:white;
+	-fx-font-size:15;
+	-fx-stroke-width:2.0;
+}
+
+.presentation{
+	-fx-padding:280 190;
+	-fx-text-fill:white;
+	-fx-text-alignment:center;
+	-fx-font-size:25;
+}
+
+
+.caseV, .caseV1, .caseV2, .caseV3 {
+	-fx-text-alignment: center;
+	-fx-background-color:white;
+	-fx-font-size:17;
+}
+
+.case, .case1, .case2, .case3 {
+	-fx-text-alignment: center;
+	-fx-background-color:white;
+	-fx-font-size:17;
+	-fx-font-weight : bold;
+}
+
+.case, .caseV {
+	-fx-padding: 18 22 22 22;
+	-fx-border-width:2;
+	-fx-border-color:#696969;	
+}
+.case1, .caseV1 { 
+	-fx-border-width:2 4 4 2; 
+	-fx-border-color:#696969 black black #696969;
+	-fx-padding:12 22 25 20;
+}
+.case2, .caseV2 {
+	-fx-border-width:2 4 2 2; 
+	-fx-border-color:#696969 black #696969 #696969;
+	-fx-padding:18 22 22 20;
+}
+.case3, .caseV3 {
+	-fx-border-width:2 2 4 2; 
+	-fx-border-color:#696969 #696969 black #696969;
+	-fx-padding:12 22 25 22;
+}
+.case:hover, .case1:hover, .case2:hover, .case3:hover, .caseV:hover, .caseV1:hover, .caseV2:hover, .caseV3:hover {
+	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.7) , 10,0,0,1 ); 
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,0.7) , 20,0,0,0 );
+}
+
+.lettres{
+	-fx-text-fill: white;
+	-fx-text-alignment: center;
+	-fx-font-size: 70;	
+}
+
+.info{
+	-fx-text-fill: white;
+	-fx-text-alignment: center;
+	-fx-font-size: 30;
+}
+
+.mot{
+	-fx-padding: 20 22 20 22;
+	-fx-text-alignment: center;
+	-fx-background-color:#B0E0E6;
+	-fx-border-width:2;
+	-fx-border-color:#696969;
+	-fx-font-size:17;
+}
+
+.cacheMeles{
+	-fx-padding: 18 20 18 20;
+	-fx-text-alignment: center;
+	-fx-background-color:#B0E0E6;
+	-fx-border-width:1;
+	-fx-border-color:#696969;
+	-fx-font-size:15;
+}
+
+.ff{
+	-fx-background-color:#B0E0E6;
+}
+
+.listeMot{
+	-fx-text-fill: white;
+	-fx-text-alignment: center;
+	-fx-font-size: 25;
+}
+
+.caseL{
+	-fx-padding: 18 22 18 22;
+	-fx-text-alignment: center;
+	-fx-background-color:white;
+	-fx-border-width:2;
+	-fx-border-color:#696969;
+	-fx-font-size:20;
+}
+
+.mdp input[type="password"] {
+	-fx-font:small-caption;
+}
+
+.stat, .stat2, .stat3{
+	-fx-padding:2 2 2 2;
+	-fx-border-width:1;
+	-fx-border-color:#696969;
+	-fx-font-size:17;
+	-fx-max-width:170;
+	-fx-min-width:170;
+}
+
+.stat{
+	-fx-background-color:#B0E0E6;
+}
+.stat2{
+	-fx-background-color: black; -fx-text-fill:white;
+}
+.stat3{
+	-fx-background-color:#00FF7F;
+}

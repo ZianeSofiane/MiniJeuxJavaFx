@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/JFX/src/application/Controle.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/JFX/src/application/Lettre.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/JFX/src/application/Log.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/JFX/src/application/Main.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/JFX/src/application/Meles.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/JFX/src/application/Motus.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/JFX/src/application/Pendu.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/JFX/src/application/Sign.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/JFX/src/application/Sudoku.java" charset="UTF-8" />
+  </component>
+</project>

@@ -1,14 +1,13 @@
 package application;
 
 import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -18,10 +17,10 @@ import javafx.stage.Stage;
 public class Pendu extends Controle {
 	String secretWord; 	// Mot secret
 	String word;		// Mot afficher
-	int nbvies; 		// déclaration d'une variable pour le nombre de vie restante
+	int nbvies; 		// declaration d'une variable pour le nombre de vie restante
 	ImageView advanc;	// Image d'avancement du jeu
-	String essaieC =  new String(); 						// Chaine avec les caractères jouées
-	ArrayList<String> essaieS = new ArrayList<String>(); 	// Chaine avec les mots jouées
+	String essaieC = ""; 						// Chaine avec les caractï¿½res jouï¿½es
+	ArrayList<String> essaieS = new ArrayList<>(); 	// Chaine avec les mots jouï¿½es
 	
 	
 	public Pendu(Stage s)  {
@@ -31,53 +30,50 @@ public class Pendu extends Controle {
 			secretWord = secretWord();	// Initialisation du mot secret
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		// Bouton de règles //
-		Button rules = creerBouton("Règles","rules",1250,680);
+			e.fillInStackTrace();
+		} catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Bouton de regles //
+		Button rules = creerBouton("Regles","rules",1250,680);
 		rules(rules,"rulesPendu");
 		p.getChildren().add(rules);
 		
 		word = word();	// Initialisation du mot vide
 		nbvies=7;					// Initialisation du nombres de vies
 		
-		advanc= creerImage("/project/image/Etape1.png",600,350,60,180);		// Première image du jeu
+		advanc= creerImage("/project/image/Etape1.png",600,350,60,180);		// Premiï¿½re image du jeu
 		
 		newPage(s,p,scene,"Pendu");											// Nouvelle page
 		Label cache = creerLabel(p,word,"lettres",60,40);					// Label du mot vide
 		Label info = creerLabel(p,"Bienvenue au pendu !","info",750,100);	// Label donnant des informations lors de la partie
-		TextField zoneTxt = new TextField();								// Création zone de saisie utilisateur
-		zoneTxt = saisie(p,zoneTxt,"saisie",600,50,60,600);
+		TextField zoneTxt = new TextField();								// Crï¿½ation zone de saisie utilisateur
+		zoneTxt = saisie(p,zoneTxt, 600, 60,600);
 		zoneTxt.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
 		Button ok = creerBouton("OK","case",680,595);						// bouton ok de la zone de saisie
 		ok = addAction(p,zoneTxt,cache,ok,info);							// ajout de l'effet du bouton ok
 		
 		addReturn(p,s);		// retour au choix du jeu
 		
-		p.getChildren().addAll(ok,advanc);	// ajout des éléments du pane
+		p.getChildren().addAll(ok,advanc);	// ajout des ï¿½lï¿½ments du pane
 	}
 	
 	
-	String secretWord() throws FileNotFoundException {		// retourne un mots d'une taille aléatoire compris entre 5 et 15 lettres
+	String secretWord() throws FileNotFoundException, URISyntaxException {		// retourne un mots d'une taille alï¿½atoire compris entre 5 et 15 lettres
 		int i = (int)(5+(Math.random()*10));
 		return xLettres(i);
 	}
 	
 	
 	String word() {					// Initialisation du mot vide
-		String word = new String();
-		for(int i=0; i<secretWord.length(); i++) {
-			word = word + '_';
-		}
-		
-		return word;
+        return "_".repeat(secretWord.length());
 	}
 	
 	
-	void setAdvanc(Pane p) {	// Avancement du jeu selon le nombre de vies restants, se déclenche lors d'une erreur
+	void setAdvanc(Pane p) {	// Avancement du jeu selon le nombre de vies restants, se dï¿½clenche lors d'une erreur
 		advanc = null;
-		nbvies--;	// décrémentation du nombre de vies
+		nbvies--;	// dï¿½crï¿½mentation du nombre de vies
 		// Changement de l'image d'avancement //
 		switch(nbvies) {
 		case 6:
@@ -106,7 +102,7 @@ public class Pendu extends Controle {
 	}
 	
 	
-	// Fonction renvoyant TRUE si un caractère est dans un mot
+	// Fonction renvoyant TRUE si un caractï¿½re est dans un mot
 	boolean isInString(String s,char c) {
 		char[] m;
 		m = s.toCharArray();
@@ -118,58 +114,52 @@ public class Pendu extends Controle {
 		return false;
 	}
 	
-	// Fonction renvoyant TRUE si un mot ou un caractère a déjà été jouer
+	// Fonction renvoyant TRUE si un mot ou un caractï¿½re a dï¿½jï¿½ ï¿½tï¿½ jouer
 	boolean alreadyTry(String s) {
-		if(s.length()==1) {				// si s est un caractère
-	    	if(essaieC.contains(s)) {	// on regarde si il est dans la chaine de caractères joués
-	    		return true;	
-	    	}
-	    	return false;	
-	    }
-		for(int i=0;i<essaieS.size();i++) {	// si s est un mot
-			if(s.equals(essaieS.get(i))) {	// on regarde si il est présent dans la liste de mots joués
-				return true;
-			}
-		}
+		if(s.length()==1) {				// si s est un caractï¿½re
+            // on regarde si il est dans la chaine de caractï¿½res jouï¿½s
+            return essaieC.contains(s);
+        }
+        for (String essay : essaieS) {    // si s est un mot
+            if (s.equals(essay)) {    // on regarde si il est prï¿½sent dans la liste de mots jouï¿½s
+                return true;
+            }
+        }
 		return false;
 	}
 	
 	
 	/*
-	 * Fonction se déclenchant quand on joue un caractère
-	 * Entrées : Pane, zone de saisie utilisateur,
-	 * 			 Deux tableaux de caractères: c : texte de la zone de saisie utilisateur
-	 * 										  n : texte du mot Afficher à l'écran
+	 * Fonction se dï¿½clenchant quand on joue un caractï¿½re
+	 * Entrï¿½es : Pane, zone de saisie utilisateur,
+	 * 			 Deux tableaux de caractï¿½res: c : texte de la zone de saisie utilisateur
+	 * 										  n : texte du mot Afficher ï¿½ l'ï¿½cran
 	 * 			 Label du mot cache, Label des infos
 	*/
 	void playChar(Pane p,TextField zoneTxt,char[] c,char[] n,Label cache,Label info) {
-		if(alreadyTry(zoneTxt.getText().toUpperCase())){		// Si le caractère a déjà été jouer
-			info.setText("Vous avez déjà jouer ce caractère");	// Texte informatif
+		if(alreadyTry(zoneTxt.getText().toUpperCase())){		// Si le caractï¿½re a dï¿½jï¿½ ï¿½tï¿½ jouer
+			info.setText("Vous avez dï¿½jï¿½ jouer ce caractï¿½re");	// Texte informatif
 		}
 		else{
-			essaieC = essaieC + c[0];							// ajout à la chaine des essaies
-			if(!(isInString(secretWord,c[0]))) {				// Si mauvais caractère
+			essaieC = essaieC + c[0];							// ajout ï¿½ la chaine des essaies
+			if(!(isInString(secretWord,c[0]))) {				// Si mauvais caractï¿½re
 				setAdvanc(p);									// Avancement du jeu
-				points = points - 5;							// Perte de points
 			}
 			else {
-				points = points + 10;							// Gain de point
-				for(int i=0;i<secretWord.length();i++) {		
-		    		if(c[0] == secretWord.charAt(i)) {			// Comparaison caractère saisie au caractère i de secretWord
-		    			n[i] = secretWord.charAt(i);			// Evolution du texte du mot à l'écran
+				for(int i=0;i<secretWord.length();i++) {
+		    		if(c[0] == secretWord.charAt(i)) {			// Comparaison caractï¿½re saisie au caractï¿½re i de secretWord
+		    			n[i] = secretWord.charAt(i);			// Evolution du texte du mot ï¿½ l'ï¿½cran
 		    		}
 		    	}
-				// Evolution du texte du mot à l'écran
-				String nouveau = new String();
+				// Evolution du texte du mot ï¿½ l'ï¿½cran
+				StringBuilder nouveau = new StringBuilder();
 		    	for(int i=0;i<secretWord.length();i++) {
-		    		nouveau = nouveau + n[i];
+		    		nouveau.append(n[i]);
 		    	}
-		    	word = nouveau;
-		    	cache.setText(nouveau);	
+		    	word = nouveau.toString();
+		    	cache.setText(nouveau.toString());
 		    	if(word.equals(secretWord)) {					// Quand le mot obtenu est le mot Secret, le jeu se termine
 					info.setText("Vous avez gagner !");			
-					points = points + secretWord.length()^2;	// Gain de points
-					setPts("pendu");							// Mise à jour des points dans la bdd
 				}
 			}
 		}
@@ -189,55 +179,48 @@ public class Pendu extends Controle {
 	
 	
 	/*
-	 * Fonction se déclenchant quand on joue un mot
-	 * Entrées : Pane, zone de saisie utilisateur,
+	 * Fonction se dï¿½clenchant quand on joue un mot
+	 * Entrï¿½es : Pane, zone de saisie utilisateur,
 	 * 			 Label du mot cache, Label des infos
 	*/
 	void playString(Pane p,TextField zoneTxt,Label cache,Label info) {
-		if(alreadyTry(zoneTxt.getText().toUpperCase())){	// Si mot déjà jouer
-			info.setText("Vous avez déjà jouer ce mot");	// Texte informatif
+		if(alreadyTry(zoneTxt.getText().toUpperCase())){	// Si mot dï¿½jï¿½ jouer
+			info.setText("Vous avez dï¿½jï¿½ jouer ce mot");	// Texte informatif
 		}
 		else if(!alreadyTry(zoneTxt.getText())){
-			essaieS.add(zoneTxt.getText().toUpperCase());				// Ajout du mot saisie à la liste des essaies
-			if(zoneTxt.getText().toUpperCase().equals(secretWord)) {	// Si le mot saisie est égale au mot secret
-				points = points + ((countVoid(word))^2 *10);			// Gain de points
-				points = points + secretWord.length()^2;
+			essaieS.add(zoneTxt.getText().toUpperCase());				// Ajout du mot saisie ï¿½ la liste des essaies
+			if(zoneTxt.getText().toUpperCase().equals(secretWord)) {	// Si le mot saisie est ï¿½gale au mot secret
 				word = secretWord;
 				cache.setText(secretWord);
 				info.setText("Vous avez gagner !");
-				setPts("pendu");										// mise à jour des points du joueur dans la bdd
 			}
 			else {
 				setAdvanc(p);											// Avancement du jeu
-				points = points - 5;									// Perte de points
 			}
 		}
 	}
 	
 	
-	// Bouton d'action du bouton ok lié à la zone de saisie utilisateur //
+	// Bouton d'action du bouton ok liï¿½ ï¿½ la zone de saisie utilisateur //
 	Button addAction(Pane p,TextField zoneTxt,Label cache,Button ok,Label info) {
-			ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			    @Override
-			    public void handle(MouseEvent e) {
-			    	if(!secretWord.equals(word) && nbvies!=0) {
-			    		char[] n;
-						n = cache.getText().toCharArray();
-				    	char[] c;
-						c = (zoneTxt.getText().toUpperCase()).toCharArray();
-						if(zoneTxt.getText().length()==1) {
-							playChar(p,zoneTxt,c,n,cache,info);			// Traitement de jeu d'un caractère
-						}
-						else if(zoneTxt.getText().length()>1) {
-							playString(p,zoneTxt,cache,info);			// Traitement de jeu d'un mot
-						}
-			    	}
-			    	if(nbvies==0){						// Affichage du mot cherché quand on a perdu
-			    		word = secretWord;
-			    		cache.setText(secretWord);
-			    	}
-			    }
-		});
+			ok.setOnMouseClicked(_ -> {
+                if(!secretWord.equals(word) && nbvies!=0) {
+                    char[] n;
+                    n = cache.getText().toCharArray();
+                    char[] c;
+                    c = (zoneTxt.getText().toUpperCase()).toCharArray();
+                    if(zoneTxt.getText().length()==1) {
+                        playChar(p,zoneTxt,c,n,cache,info);			// Traitement de jeu d'un caractï¿½re
+                    }
+                    else if(zoneTxt.getText().length()>1) {
+                        playString(p,zoneTxt,cache,info);			// Traitement de jeu d'un mot
+                    }
+                }
+                if(nbvies==0){						// Affichage du mot cherchï¿½ quand on a perdu
+                    word = secretWord;
+                    cache.setText(secretWord);
+                }
+            });
 		return ok;
 	}
 	

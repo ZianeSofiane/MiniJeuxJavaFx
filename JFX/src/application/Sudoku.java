@@ -1,13 +1,5 @@
 package application;
 
-/*
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-*/
 import java.util.ArrayList;
 
 import javafx.event.EventHandler;
@@ -22,7 +14,7 @@ public class Sudoku extends Controle {
 	Button[][] grille = new Button[9][9];	// grille de jeu
 	Button[][] solution = new Button[9][9];	// solution de la grille
 	Button[][] saisie = new Button[4][3];	// Padd de saisie des valeurs
-	ArrayList<String> nums = valPadd();		// liste des caractères de jeu 
+	ArrayList<String> nums = valPadd();		// liste des caractï¿½res de jeu 
 	ArrayList<ArrayList<Integer>> l = new ArrayList<ArrayList<Integer>>();	// liste d'indices
 
 	
@@ -31,13 +23,13 @@ public class Sudoku extends Controle {
 		Pane p = new Pane();
 		Scene scene2 = new Scene(p);
 		
-		// bouton des règles
-		Button rules = creerBouton("Règles","rules",1250,680);
+		// bouton des regles
+		Button rules = creerBouton("Regles","rules",1250,680);
 		rules(rules,"rulesLettre");
 		p.getChildren().add(rules);
 		
 		Label info = creerLabel(p,"Bienvenue au sudoku !","info",825,400);
-		saisie = genererSaisie(p,nums,info);	//génération du padd de saisie
+		saisie = genererSaisie(p,nums,info);	//gï¿½nï¿½ration du padd de saisie
 		newPage(stage,p,scene2,"sudoku");		// nouvelle page
 		// affichage du padd
 		for(int i=0; i<9; i++) {
@@ -47,7 +39,7 @@ public class Sudoku extends Controle {
 		}
 		addReturn(p,stage);						// retour au choix du jeu
 		
-		// ajout des indices de la grille sauf la diagonale dans la liste l ( va servir pour la génération de la grille )
+		// ajout des indices de la grille sauf la diagonale dans la liste l ( va servir pour la gï¿½nï¿½ration de la grille )
 		for(int i=0; i<9 ; i++) {
 			for(int j=0; j<9 ; j++) {
 				if(i!=j) {
@@ -57,18 +49,18 @@ public class Sudoku extends Controle {
 			}
 		}
 		
-		grille = genererGrille(p, info, difficulty);	// génération de la grille
+		grille = genererGrille(p, info, difficulty);	// gï¿½nï¿½ration de la grille
 	}
 	
 	
-	// suppression des élément de la diagonal \ de la grille
+	// suppression des ï¿½lï¿½ment de la grille
 	void suppDiag() {
 		for(int i=0; i<9; i++) {
 			solution[i][i].setText("  ");
 		}
 	}
 	
-	// Définition des Valeurs du padd
+	// Dï¿½finition des Valeurs du padd
 	public ArrayList<String> valPadd(){
 		ArrayList<String> val = new ArrayList<String>(9);
 		val.add("1"); 
@@ -84,16 +76,16 @@ public class Sudoku extends Controle {
 		return val;
 	}
 	
-	// Génération de la grille de jeu //
+	// Gï¿½nï¿½ration de la grille de jeu //
 	public Button[][] genererGrille(Pane p, Label info, int difficulty){
-		solution();				// on génère une solution aléatoire
+		solution();				// on gï¿½nï¿½re une solution alï¿½atoire
 		suppDiag();				// on supprime les valeurs de la diagonale
-		delete(0,difficulty,l);	// on supprime un certain nombre de valeurs de la grille selon la difficulté choisie
+		delete(0,difficulty,l);	// on supprime un certain nombre de valeurs de la grille selon la difficultï¿½ choisie
 		for(int i=0; i<9; i++) {
 			for(int j=0;j<9;j++) {
 				if(i==2 || i==5) {
 					if(j==2 || j==5) {	// Gestion des styles des cases pour l'affichage des bordures
-						// gestion du style css selon si c'est une case jouable ou non, les chiffres de départs de la grille sont en gras
+						// gestion du style css selon si c'est une case jouable ou non, les chiffres de dï¿½parts de la grille sont en gras
 						if(solution[i][j].getText().equals("  ")) {
 							grille[i][j] = creerBouton(solution[i][j].getText(),"caseV1",(64*(i+1))+10,(70*(j+1))+5);
 							grille[i][j] = addAction(i,j,saisie,info,p);	// ajout de l'action au clic des cases jouables
@@ -141,9 +133,9 @@ public class Sudoku extends Controle {
 		return grille;
 	}
 	
-	// génération du padd de saisie //
+	// gï¿½nï¿½ration du padd de saisie //
 	public Button[][] genererSaisie(Pane p, ArrayList<String> liste,Label info) {
-		Button saisie[][] = new Button[4][3];
+		Button[][] saisie = new Button[4][3];
 		for(int i=0; i<3; i++) {
 			for(int j=0;j<3;j++) {
 				saisie[i][j] = creerBouton(liste.get((j*3)+(i)),"case",(64*(i+1))+800,(70*(j+1))+5);
@@ -164,7 +156,7 @@ public class Sudoku extends Controle {
 		info.setText("VOUS AVEZ GAGNER !");
 	}
 	
-	// renvoie TRUE si la valeur d'une case est déjà dans la ligne
+	// renvoie TRUE si la valeur d'une case est dï¿½jï¿½ dans la ligne
 	boolean estDansLaLigne(int i,int ligne, Button[][] grille)
 	{
 		for(int colonne=0; colonne < 9; colonne++)
@@ -177,7 +169,7 @@ public class Sudoku extends Controle {
 		return false;
 	}
 	
-	// renvoie TRUE si la valeur d'une case est déjà dans la colonne
+	// renvoie TRUE si la valeur d'une case est dï¿½jï¿½ dans la colonne
 	boolean estDansLaColonne (int colonne, int j, Button[][] grille)
 	{
 		for(int ligne=0; ligne < 9; ligne ++)
@@ -191,8 +183,8 @@ public class Sudoku extends Controle {
 	}
 	
 	/*
-	 * 	renvoie TRUE si la valeur d'une case est déjà dans le carré
-	 * 	Entrées: i et j, indices de la case à comparer, les min et max définissant la zone du carré à étudier
+	 * 	renvoie TRUE si la valeur d'une case est dï¿½jï¿½ dans le carrï¿½
+	 * 	Entrï¿½es: i et j, indices de la case ï¿½ comparer, les min et max dï¿½finissant la zone du carrï¿½ ï¿½ ï¿½tudier
 	 */
 	boolean verifCarre(int i,int j,int minC,int minL,int maxC,int maxL,Button[][] grille) {
 		for(int colonne=minC; colonne<=maxC; colonne++) {
@@ -219,16 +211,16 @@ public class Sudoku extends Controle {
 	}
 	
 	
-	// Renvoie TRUE si la grille ne présente pas de contradiction et mais à jour les couleurs selon les erreurs
+	// Renvoie TRUE si la grille ne prï¿½sente pas de contradiction et mais ï¿½ jour les couleurs selon les erreurs
 	boolean verif(Button[][] grille) {
 		boolean b = true;
 		for(int i=0; i<9; i++) {
 			for(int j=0;j<9;j++) {
-				if(grille[i][j].getText().equals("  ")){				 // si la case est vide, elle ne peut pas être une erreur
+				if(grille[i][j].getText().equals("  ")){				 // si la case est vide, elle ne peut pas ï¿½tre une erreur
 					grille[i][j].setStyle("-fx-background-color: white;"
 							+ "-fx-text-fill:black");
 				}
-				// si la valeur de la case est déjà présente dans le carré, la ligne, ou la colonne, on la met en rouge
+				// si la valeur de la case est dï¿½jï¿½ prï¿½sente dans le carrï¿½, la ligne, ou la colonne, on la met en rouge
 				else if(estDansLeCarre(i,j,grille) || estDansLaLigne(i,j,grille) || estDansLaColonne(i,j,grille)) {
 					grille[i][j].setStyle("-fx-background-color: #FEB7B7;"
 							+ "-fx-text-fill:red");
@@ -246,41 +238,37 @@ public class Sudoku extends Controle {
 	
 	
 	/*
-	 *  renvoie TRUE si la valeur à l'indice i,j est déjà présente dans le carré
+	 *  renvoie TRUE si la valeur ï¿½ l'indice i,j est dï¿½jï¿½ prï¿½sente dans le carrï¿½
 	 */
 	boolean estDansLeCarre(int i,int j,Button[][] grille) {
-		boolean b = false;
-		// définition de dans quel carré on se trouve selon les indices i,j
-		switch(i%3) {
-		case 0:
-			switch(j%3) {
-			case 0: b = verifCarre(i,j,i,j,i+2,j+2,grille); break;
-			case 1: b = verifCarre(i,j,i,j-1,i+2,j+1,grille); break;
-			case 2: b = verifCarre(i,j,i,j-2,i+2,j,grille); break;
-			}
-			break;
-		case 1:
-			switch(j%3) {
-			case 0: b = verifCarre(i,j,i-1,j,i+1,j+2,grille); break;
-			case 1: b = verifCarre(i,j,i-1,j-1,i+1,j+1,grille); break;
-			case 2: b = verifCarre(i,j,i-1,j-2,i+1,j,grille); break;
-			}
-			break;
-		case 2:
-			switch(j%3) {
-			case 0: b = verifCarre(i,j,i-2,j,i,j+2,grille); break;
-			case 1: b = verifCarre(i,j,i-2,j-1,i,j+1,grille); break;
-			case 2: b = verifCarre(i,j,i-2,j-2,i,j,grille); break;
-			}
-			break;
-		}
-		return b;
+        return switch (i % 3) {
+case 0 -> switch (j % 3) {
+case 0 -> verifCarre(i, j, i, j, i + 2, j + 2, grille);
+case 1 -> verifCarre(i, j, i, j - 1, i + 2, j + 1, grille);
+case 2 -> verifCarre(i, j, i, j - 2, i + 2, j, grille);
+default -> false;
+};
+case 1 -> switch (j % 3) {
+case 0 -> verifCarre(i, j, i - 1, j, i + 1, j + 2, grille);
+case 1 -> verifCarre(i, j, i - 1, j - 1, i + 1, j + 1, grille);
+case 2 -> verifCarre(i, j, i - 1, j - 2, i + 1, j, grille);
+default -> false;
+};
+case 2 -> switch (j % 3) {
+case 0 -> verifCarre(i, j, i - 2, j, i, j + 2, grille);
+case 1 -> verifCarre(i, j, i - 2, j - 1, i, j + 1, grille);
+case 2 -> verifCarre(i, j, i - 2, j - 2, i, j, grille);
+default -> false;
+};
+default -> false;
+// dï¿½finition de dans quel carrï¿½ on se trouve selon les indices i,j
+};
 	}
 	
-	// remplissage de la première ligne de la grille aléatoirement 		 //
-	// liste l des possibilités, n pour parcourir la ligne récursivement //
+	// remplissage de la premiï¿½re ligne de la grille alï¿½atoirement 		 //
+	// liste l des possibilitï¿½s, n pour parcourir la ligne rï¿½cursivement //
 	Button[][] ligne1(ArrayList<String> l, int n) {
-		if(l.size()==0) {
+		if(l.isEmpty()) {
 			return solution;
 		}
 		else {
@@ -327,13 +315,13 @@ public class Sudoku extends Controle {
 	}
 	
 	/*
-	 * 	Suppression de plusieurs valeurs aléatoirement
-	 * 	n : variable de boucle, x : condition d'arrêt, l : liste des indices modifiables (on a oter la diagonale pour sudoku Lettre)
+	 * 	Suppression de plusieurs valeurs alï¿½atoirement
+	 * 	n : variable de boucle, x : condition d'arrï¿½t, l : liste des indices modifiables (on a oter la diagonale pour sudoku Lettre)
 	 */
 	ArrayList<ArrayList<Integer>> delete(int n, int x, ArrayList<ArrayList<Integer>> indices) {
-		ArrayList<ArrayList<Integer>> reste = new ArrayList<ArrayList<Integer>>();
+		ArrayList<ArrayList<Integer>> reste = new ArrayList<>();
 		while(n!=x) {
-			if(indices.size()!=0) {
+			if(!indices.isEmpty()) {
 				int i = (int)(Math.random()*(indices.size()-1));
 				solution[indices.get(i).get(0)][indices.get(i).get(1)].setText("  ");
 				reste.add(indices.get(i));
@@ -343,24 +331,24 @@ public class Sudoku extends Controle {
 		return reste;
 	}
 	
-	// Re Rempli les vides de la solution avec une valeur possible aléatoire //
+	// Re Rempli les vides de la solution avec une valeur possible alï¿½atoire //
 	void reRemplir() {
-		for(int i=0 ; i<l.size(); i++) {
-			ArrayList<String> poss = valPadd();
-			int val = (int)(Math.random()*(poss.size()));
-			solution[l.get(i).get(0)][l.get(i).get(1)].setText(poss.get(val));
-			while((estDansLeCarre(l.get(i).get(0),l.get(i).get(1),solution))) {
-				poss.remove(val);
-				val = (int)(Math.random()*(poss.size()));
-				solution[l.get(i).get(0)][l.get(i).get(1)].setText(poss.get(val));
-			}
-		}
+        for (ArrayList<Integer> integers : l) {
+            ArrayList<String> poss = valPadd();
+            int val = (int) (Math.random() * (poss.size()));
+            solution[integers.get(0)][integers.get(1)].setText(poss.get(val));
+            while ((estDansLeCarre(integers.get(0), integers.get(1), solution))) {
+                poss.remove(val);
+                val = (int) (Math.random() * (poss.size()));
+                solution[integers.get(0)][integers.get(1)].setText(poss.get(val));
+            }
+        }
 	}
 	
 	/*
-	 * 	Compare la valeur de la case d'indice i,j avec les autres valeurs du carré
-	 * 	si les deux valeurs sont mals placées, on les échanges
-	 * 	Les min et max définissent le carré dans lequel on est 
+	 * 	Compare la valeur de la case d'indice i,j avec les autres valeurs du carrï¿½
+	 * 	si les deux valeurs sont mals placï¿½es, on les ï¿½changes
+	 * 	Les min et max dï¿½finissent le carrï¿½ dans lequel on est 
 	 */
 	void pivot(int i, int j, int maxi, int mini, int maxj, int minj) {
 		if((estDansLaLigne(i,j,solution) || estDansLaColonne(i,j,solution))) {
@@ -376,7 +364,7 @@ public class Sudoku extends Controle {
 		}	
 	}
 	
-	// Défini on est dans quel carré selon i,j et applique la fonction pivot
+	// Dï¿½fini on est dans quel carrï¿½ selon i,j et applique la fonction pivot
 	void pivotCarre(int i, int j) {
 		int maxi, mini, minj, maxj;
 		if(i<3) { maxi=2 ; mini=0 ; }
@@ -392,7 +380,7 @@ public class Sudoku extends Controle {
 		}
 	}
 	
-	// 3 légers mélanges des valeurs de la solution de façon quelle soit réalisable facilement par pivot
+	// 3 lï¿½gers mï¿½langes des valeurs de la solution de faï¿½on quelle soit rï¿½alisable facilement par pivot
 	void melange1() {
 		for(int j=0 ; j<3 ; j++) {
 			solution = reverse(3,4,j,j);
@@ -424,7 +412,7 @@ public class Sudoku extends Controle {
 	}
 	
 	
-	// réalise les pivots pour tous les carrés de la grille
+	// rï¿½alise les pivots pour tous les carrï¿½s de la grille
 	void pivotGrille() {
 			for(int n=0 ; n<10 ;n++) {
 			pivotCarre(0,0);
@@ -440,7 +428,7 @@ public class Sudoku extends Controle {
 	}
 	
 	
-	// on génère une solution basique aléatoire puis on effectue des mélanges pour complexifié la grille
+	// on gï¿½nï¿½re une solution basique alï¿½atoire puis on effectue des mï¿½langes pour complexifiï¿½ la grille
 	void solution() {
 		sous_solution();
 		for(int i=0; i<200 ; i++) {
@@ -471,21 +459,21 @@ public class Sudoku extends Controle {
 		}
 	}
 	
-	// ajout d'une chaine à une autre pour les hypothèse , on passe une ligne toutes les 3 valeurs
+	// ajout d'une chaine ï¿½ une autre pour les hypothï¿½se , on passe une ligne toutes les 3 valeurs
 	String hypothese(String m, String add) {
 		if(m.contains(add))  m = deleteHyp(m,add);
 		else {
 			m = m + add;
-		if(m.length()%3==0 && m.length()==3) m = m + "\n";
+		if(m.length() == 3) m = m + "\n";
 		else if(m.length()%7==0) m = m + "\n";
 		}
 		
 		return m;
 	}
 	
-	// suppression d'une hypothèse
+	// suppression d'une hypothï¿½se
 	String deleteHyp(String m,String add) {
-		String m2 = new String();
+		String m2 = "";
 		for(int i=0; i<m.length(); i++) {
 			if(!add.equals(Character.toString(m.charAt(i))) && m.charAt(i)!='\n') {
 				m2 = hypothese(m2, Character.toString(m.charAt(i)));
@@ -497,14 +485,14 @@ public class Sudoku extends Controle {
 	
 	/*
 	 * 	Action au clic sur une des valeurs du padd
-	 * 	Entrées: un bouton du padd, les indices i et j de la case de la grille sur laquelle on a cliqué avant celui sur le padd, le pane
+	 * 	Entrï¿½es: un bouton du padd, les indices i et j de la case de la grille sur laquelle on a cliquï¿½ avant celui sur le padd, le pane
 	 */
 			// bouton de suppression
 			// suppression
-			// mise à jour des couleurs de la grille, couleur rouge
+			// mise ï¿½ jour des couleurs de la grille, couleur rouge
 			// ou il y a des contradiction
 			// bouton de saisie
-			// mise à jour des couleurs et si la grille est correcte et pleine, partie terminée
+			// mise ï¿½ jour des couleurs et si la grille est correcte et pleine, partie terminï¿½e
 			// lancement de la fonction de fin
 	public Button clicPad2(Button s,int i,int j,Label info, Pane p) {
 		s.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -550,95 +538,4 @@ public class Sudoku extends Controle {
 		});
 		return grille[i][j];
 	}
-	
-	
-	
-	////// PAS FINI, Travail sur une sauvegarde pour le Sudoku //////
-	
-	/* 
-	void playSave() throws FileNotFoundException {
-		File f = new File("C:\\Users\\Ziane\\Desktop\\Dictionnaire.txt");
-		FileReader fr = new FileReader (f);
-		BufferedReader br = new BufferedReader (fr);	
-		try 
-		{
-			String line = br.readLine();
-			while (line!= null)
-				{
-				for(int i=0; i<9; i++) {
-            		for(int j=0; j<9; j++) {
-            			solution[i][j].setText(Character.toString(line.charAt(j)));
-            		}
-            		line = br.readLine();
-            	}
-				for(int i=0; i<9; i++) {
-            		for(int j=0; j<9; j++) {
-            			solution[i][j].setText(Character.toString(line.charAt(j)));
-            		}
-            		line = br.readLine();
-            	}
-				
-				for(int i=0; i<9; i++) {
-            		for(int j=0; j<9; j++) {
-            			grille[i][j].setText(line);
-            			if(!grille[i][j].getText().equals("  ") && grille[i][j].getText().length()!=1) {
-        					
-        				}
-            		}
-            		line = br.readLine();
-            	}
-				
-				
-				
-				}
-		br.close();
-		fr.close();
-		}
-		 catch (IOException exception)
-	    {
-	        System.out.println ("Erreur lors de la lecture : " + exception.getMessage());
-	    }
-	}
-	
-	
-	void save(Button[][] solution, Button[][] grille, Button[][] save) {
-		final String chemin = "C:\\Users\\Ziane\\Desktop";
-        final File fichier =new File(chemin); 
-        try {
-            // Creation du fichier
-            fichier .createNewFile();
-            // creation d'un writer (un écrivain)
-            final FileWriter writer = new FileWriter(fichier);
-            try {
-            	for(int i=0; i<9; i++) {
-            		for(int j=0; j<9; j++) {
-            			writer.write(solution[i][j].getText());
-            		}
-            		writer.write("\n");
-            	}
-            	for(int i=0; i<9; i++) {
-            		for(int j=0; j<9; j++) {
-            			writer.write(save[i][j].getText());
-            		}
-            		writer.write("\n");
-            	}
-            	for(int i=0; i<9; i++) {
-            		for(int j=0; j<9; j++) {
-            			writer.write(grille[i][j].getText());
-            			writer.write("\n");
-            		}
-            	}
-                
-                writer.write("encore et encore");
-            } finally {
-                // quoiqu'il arrive, on ferme le fichier
-                writer.close();
-            }
-        } catch (Exception e) {
-            System.out.println("Impossible de creer le fichier");
-        }
-	}
-	
-	*/
-	
 }

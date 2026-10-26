@@ -1,6 +1,7 @@
 package application;
 
 import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -13,10 +14,10 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /*
- * 	La classe Lettre du jeu Sudoku lettre hérite de la classe Sudoku, ayant quasiment les mêmes fonctionnalités à part quelques exceptions
+ * 	La classe Lettre du jeu Sudoku lettre hï¿½rite de la classe Sudoku, ayant quasiment les mï¿½mes fonctionnalitï¿½s ï¿½ part quelques exceptions
  */
 public class Lettre extends Sudoku{
-	String secretWord;	// mot secret s'affichant en diagonale à saisir après le remplissage de la grille
+	String secretWord;	// mot secret s'affichant en diagonale ï¿½ saisir aprï¿½s le remplissage de la grille
 	
 	public Lettre(Stage stage,int difficulty) {
 		super(stage,difficulty);
@@ -25,23 +26,21 @@ public class Lettre extends Sudoku{
 
 	
 	// Generation d'un mot de 9 lettres sans doublons
-	String motSudokuL(String motS) throws FileNotFoundException 
-	{
+	String motSudokuL(String motS) throws FileNotFoundException, URISyntaxException {
 		char [] motP = motS.toCharArray();
-		ArrayList<Character> al = new ArrayList<Character>();
+		ArrayList<Character> al = new ArrayList<>();
 		for(char c : motP)
 		{
 			al.add(c);
 		}	
-		HashSet<Character> hs = new HashSet<Character>(al);
+		HashSet<Character> hs = new HashSet<>(al);
 		if(hs.size()==9)
 		{
-			String s = ""; 
-		for (int x=0; x<al.size(); x++)
-		{
-			s= s + al.get(x);
-		}
-		return s;
+			StringBuilder s = new StringBuilder();
+            for (Character character : al) {
+                s.append(character);
+            }
+		return s.toString();
 		}
 		else return motSudokuL(xLettres(9)); 		
 	}
@@ -50,53 +49,55 @@ public class Lettre extends Sudoku{
 	String generateSecretWord() {
 		if(secretWord == null) {
 			try {
-				secretWord = new String(motSudokuL(xLettres(9)));
+				secretWord = motSudokuL(xLettres(9));
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
+				e.fillInStackTrace();
+			} catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        }
 		return secretWord;
 	}
 	
-	// rédéfinition de la fonction valPadd() ici les valeurs du padd sont les lettres du mot secret
+	// rï¿½dï¿½finition de la fonction valPadd() ici les valeurs du padd sont les lettres du mot secret
 	public ArrayList<String> valPadd(){
-		ArrayList<String> val = new ArrayList<String>(9);
-		String pad = melangeLettresMots(generateSecretWord());	// on genere le mot secret puis mélange ses lettres
+		ArrayList<String> val = new ArrayList<>(9);
+		String pad = melangeLettresMots(generateSecretWord());	// on genere le mot secret puis mï¿½lange ses lettres
 		for(int i=0; i<9; i++) {
 			val.add(Character.toString(pad.charAt(i))); 		// ajout des valeurs du padd
 		}
 		return val;
 	}
 	
-	// supprime le caractère à l'indice i de la chaine m
+	// supprime le caractï¿½re ï¿½ l'indice i de la chaine m
 	String deleteCharAt(String m, int i) {
-		String m2 = new String();
+		StringBuilder m2 = new StringBuilder();
 		for(int j=0; j<m.length(); j++) {
 			if(j!=i) {
-				m2 = m2 + m.charAt(j);
+				m2.append(m.charAt(j));
 			}	
 		}
-		return m2;
+		return m2.toString();
 	}
 	
-	// mélange les lettres d'un mot
+	// mï¿½lange les lettres d'un mot
 	String melangeLettresMots(String m) {
-		String m2 = new String();
-		while(m.length()!=0) {
+		StringBuilder m2 = new StringBuilder();
+		while(!m.isEmpty()) {
 			int i = (int)(Math.random()*m.length());
-			m2 = m2 + m.charAt(i);
+			m2.append(m.charAt(i));
 			m = deleteCharAt(m,i);
 		}
-		return m2;
+		return m2.toString();
 	}
 	
-	// inverse le sens du mot en entrée
+	// inverse le sens du mot en entrï¿½e
 	String reverseWord(String s) {
-		String s1 = new String(Character.toString(s.charAt(s.length()-1)));
+		StringBuilder s1 = new StringBuilder(Character.toString(s.charAt(s.length() - 1)));
 		for(int i=s.length()-2; i>=0; i--) {
-			s1 =s1 + s.charAt(i);
+			s1.append(s.charAt(i));
 		}
-		return s1;
+		return s1.toString();
 	}
 	
 	// ajout du mot secret sur la diagonale
@@ -117,7 +118,7 @@ public class Lettre extends Sudoku{
 	}
 	
 	
-	// rédéfinition de la fonction ligne 1 vu qu'ici on la determine en fonction de la diagonale
+	// rï¿½dï¿½finition de la fonction ligne 1 vu qu'ici on la determine en fonction de la diagonale
 	Button[][] ligne1(ArrayList<String> l, int n) {
 		solution = diagonale();
 		
@@ -134,7 +135,7 @@ public class Lettre extends Sudoku{
 	}
 	
 	
-	// Les fonctions effectuants les modifications de la solution basique de la grille sont redéfinis du fait qu'ici on ne souhaite pas modifier la diagonale //
+	// Les fonctions effectuants les modifications de la solution basique de la grille sont redï¿½finis du fait qu'ici on ne souhaite pas modifier la diagonale //
 	
 	void pivotCarre(int i, int j) {
 		int maxi, mini, minj, maxj;
@@ -221,7 +222,7 @@ public class Lettre extends Sudoku{
 				melange3();
 				for(int k=0; k<9 ; k++) {
 					for(int m=0; m<9 ; m++) {
-						ArrayList<Integer> indices = new ArrayList<Integer>();
+						ArrayList<Integer> indices = new ArrayList<>();
 						indices.add(k);indices.add(m);
 						if(k!=m) {
 						if(!l.contains(indices)) {
@@ -235,11 +236,11 @@ public class Lettre extends Sudoku{
 		}
 	}
 	
-	// redéfinition de la foncion fin, ici on doit saisir le mot secret
+	// redï¿½finition de la foncion fin, ici on doit saisir le mot secret
 	void fin(Pane p,Label info) {
 		info.setText("Saisissez le mot cache");
 		TextField zoneTxt = new TextField();
-		zoneTxt = saisie(p,zoneTxt,"saisie",300,50,800,600);
+		zoneTxt = saisie(p,zoneTxt, 300, 800,600);
 		zoneTxt.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
 		Button ok = creerBouton("OK","case",1120,595);
 		p.getChildren().add(ok);
@@ -247,13 +248,12 @@ public class Lettre extends Sudoku{
 		ok = actionOk(ok,zoneTxt,info);	
 	}
 	
-	// action au clic du bouton ok associé à la zone de saisie utilisateur du mot secret apparaissant après avoir fini la grille
+	// action au clic du bouton ok associï¿½ ï¿½ la zone de saisie utilisateur du mot secret apparaissant aprï¿½s avoir fini la grille
 	Button actionOk(Button ok,TextField zoneTxt, Label info) {
-		ok.setOnMouseClicked(e-> {
+		ok.setOnMouseClicked(_ -> {
 			if(zoneTxt.getText().toUpperCase().equals(secretWord)) {
 				info.setText("VOUS AVEZ GAGNE");
-				e=null;
-			}
+            }
 		});
 		return ok;
 	}
